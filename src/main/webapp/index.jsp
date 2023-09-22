@@ -17,9 +17,6 @@
 	<button type="submit">Đăng Nhập</button>
 </form>
 
-<!-- Hiển thị thông báo lỗi nếu có -->
-<c:if test="${param.error == 'true'}">
-	<p style="color: red;">Sai tài khoản hoặc mật khẩu.</p>
-</c:if>
+
 </body>
 </html>

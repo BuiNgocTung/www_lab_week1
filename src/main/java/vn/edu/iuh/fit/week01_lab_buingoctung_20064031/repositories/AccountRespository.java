@@ -22,7 +22,7 @@ public class AccountRespository {
             query.setParameter("email", email);
             return query.getSingleResult();
         } catch (NoResultException e) {
-            // Trả về null nếu không tìm thấy tài khoản
+
             return null;
         }
     }
