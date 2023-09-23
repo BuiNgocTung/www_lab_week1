@@ -2,7 +2,10 @@ package vn.edu.iuh.fit.controllers;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,58 +16,42 @@ import vn.edu.iuh.fit.db.Connection;
 import vn.edu.iuh.fit.entities.Account;
 
 import java.io.IOException;
-
-@WebServlet(name = "ControlServlet", urlPatterns = {"/ControlServlet"})
+@WebServlet( urlPatterns = {"/controller","/account"})
 public class ControlServlet extends HttpServlet {
-    private final EntityManagerFactory emf = Connection.getInstance().getEntityManagerFactory();
+
+    private Account account = null;
+    private RequestDispatcher requestDispatcher = null;
     private final AccountRespository accountRepository = new AccountRespository();
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-
-        if ("login".equals(action)) {
-            login(request, response);
-        } else if ("logout".equals(action)) {
-            logout(request, response);
-        }
-    }
-
-    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        EntityManager em = emf.createEntityManager();
-        try {
-            Account account = accountRepository.getAccountByEmail(em, email);
-
-            if (account != null && account.getpassword().equals(password) && account.getStatus() == 1) {
-                HttpSession session = request.getSession();
-                session.setAttribute("loggedIn", true);
-                session.setAttribute("email", email);
-
-                response.sendRedirect("dashboard.jsp");
-            } else {
-                response.sendRedirect("index.jsp?error=true");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("index.jsp?error=true");
-        } finally {
-            em.close();
-        }
-    }
-
-    private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.removeAttribute("loggedIn");
-        session.removeAttribute("email");
-        session.invalidate();
-
-        response.sendRedirect("index.jsp");
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String login = req.getParameter("login");
+        handleLogin(req, resp);
     }
 
     @Override
-    public void destroy() {
-        emf.close();
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        System.out.println(action);
+    }
+
+    public void handleLogin(ServletRequest req, ServletResponse reqs) throws ServletException, IOException {
+
+        requestDispatcher = getServletContext().getRequestDispatcher("/dashboard.jsp");
+        requestDispatcher.forward(req,reqs);
+        String email = req.getParameter("email");
+        String password = req.getParameter("psw");
+
+        account =accountRepository.getAccountByEmailAndPassword(email,password);
+        if (account != null){
+            req.setAttribute("accountID", account.getAccountID());
+            req.setAttribute("fullName", account.getFullName());
+            req.setAttribute("email", account.getEmail());
+            req.setAttribute("phone", account.getPhone());
+
+        }
+        else
+            System.out.println("Sai");
+
     }
 }
