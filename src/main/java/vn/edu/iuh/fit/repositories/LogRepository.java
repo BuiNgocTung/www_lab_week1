@@ -1,9 +1,8 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031.repositories;
+package vn.edu.iuh.fit.repositories;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.db.Connection;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.entities.Log;
+import vn.edu.iuh.fit.db.Connection;
+import vn.edu.iuh.fit.entities.Log;
 
 import java.util.List;
 

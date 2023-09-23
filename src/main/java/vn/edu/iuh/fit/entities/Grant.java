@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031.entities;
+package vn.edu.iuh.fit.entities;
 
 public enum Grant {
     GRANTED("1"),

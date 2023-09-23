@@ -1,21 +1,18 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031.controllers;
+package vn.edu.iuh.fit.controllers;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.db.Connection;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.entities.Account;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.repositories.AccountRespository;
+import vn.edu.iuh.fit.repositories.AccountRespository;
+import vn.edu.iuh.fit.db.Connection;
+import vn.edu.iuh.fit.entities.Account;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "ControlServlet", urlPatterns = {"/ControlServlet"})
 public class ControlServlet extends HttpServlet {

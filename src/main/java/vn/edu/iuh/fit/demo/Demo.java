@@ -1,10 +1,10 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031.demo;
+package vn.edu.iuh.fit.demo;
 
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.db.Connection;
+import vn.edu.iuh.fit.db.Connection;
 
 public class Demo {
     public static void main(String[] args) {

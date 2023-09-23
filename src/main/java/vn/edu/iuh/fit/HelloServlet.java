@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031;
+package vn.edu.iuh.fit;
 
 import java.io.*;
 

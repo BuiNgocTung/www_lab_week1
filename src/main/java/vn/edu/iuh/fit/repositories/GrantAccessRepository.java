@@ -1,11 +1,10 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031.repositories;
+package vn.edu.iuh.fit.repositories;
 
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import org.hibernate.service.spi.InjectService;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.db.Connection;
-import vn.edu.iuh.fit.week01_lab_buingoctung_20064031.entities.GrantAccess;
+import vn.edu.iuh.fit.db.Connection;
+import vn.edu.iuh.fit.entities.GrantAccess;
 
 import java.util.logging.Logger;
 

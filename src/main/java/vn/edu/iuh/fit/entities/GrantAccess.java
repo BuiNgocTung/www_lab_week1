@@ -1,8 +1,7 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031.entities;
+package vn.edu.iuh.fit.entities;
 
 import jakarta.persistence.*;
 
-import javax.swing.*;
 import java.util.Objects;
 
 @Entity

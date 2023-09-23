@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.week01_lab_buingoctung_20064031.db;
+package vn.edu.iuh.fit.db;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
