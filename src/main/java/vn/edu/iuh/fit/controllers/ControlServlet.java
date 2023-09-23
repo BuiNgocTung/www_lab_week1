@@ -16,7 +16,7 @@ import vn.edu.iuh.fit.db.Connection;
 import vn.edu.iuh.fit.entities.Account;
 
 import java.io.IOException;
-@WebServlet( urlPatterns = {"/controller","/account"})
+@WebServlet( urlPatterns = {"/controller","/action"})
 public class ControlServlet extends HttpServlet {
 
     private Account account = null;
@@ -26,6 +26,7 @@ public class ControlServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
+
         handleLogin(req, resp);
     }
 
@@ -37,8 +38,7 @@ public class ControlServlet extends HttpServlet {
 
     public void handleLogin(ServletRequest req, ServletResponse reqs) throws ServletException, IOException {
 
-        requestDispatcher = getServletContext().getRequestDispatcher("/dashboard.jsp");
-        requestDispatcher.forward(req,reqs);
+
         String email = req.getParameter("email");
         String password = req.getParameter("psw");
 
@@ -48,6 +48,8 @@ public class ControlServlet extends HttpServlet {
             req.setAttribute("fullName", account.getFullName());
             req.setAttribute("email", account.getEmail());
             req.setAttribute("phone", account.getPhone());
+            requestDispatcher = getServletContext().getRequestDispatcher("/dashboard.jsp");
+            requestDispatcher.forward(req,reqs);
 
         }
         else
