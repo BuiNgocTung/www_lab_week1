@@ -8,6 +8,7 @@ import jakarta.persistence.TypedQuery;
 import vn.edu.iuh.fit.db.Connection;
 import vn.edu.iuh.fit.entities.Account;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class AccountRespository {
@@ -24,6 +25,23 @@ public class AccountRespository {
     public Account getAccountById(String id){
 
         return em.find(Account.class, id);
+    }
+    public List<Account> getAll() {
+        return em.createQuery("select c from Account c", Account.class)
+                .getResultList();
+    }
+
+    public boolean updateAccount(Account account){
+        trans.begin();
+        try{
+            em.merge(account);
+            trans.commit();
+            return true;
+        }catch (Exception exception){
+            exception.printStackTrace();
+            trans.rollback();
+        }
+        return false;
     }
 
     public Account getAccountByEmailAndPassword(String email, String password){

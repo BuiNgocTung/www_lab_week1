@@ -32,8 +32,16 @@ public class ControlServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
+        String upAccount = req.getParameter("upAccount");
+        if (login != null) {
+            handleLogin(req, resp);
+        } else if (upAccount != null) {
+            if (!handleUpdateAccount(req, resp))
+                System.out.println("Can't update");
+            requestDispatcher = getServletContext().getRequestDispatcher("/dashboard.jsp");
+            requestDispatcher.forward(req, resp);
+        }
 
-        handleLogin(req, resp);
     }
 
     @Override
@@ -84,5 +92,14 @@ public class ControlServlet extends HttpServlet {
         else
             System.out.println("Sai");
 
+    }
+    public boolean handleUpdateAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("up_acc_id");
+        String name = req.getParameter("up_acc_name");
+        String email = req.getParameter("up_acc_email");
+        String password = req.getParameter("up_acc_password");
+        String phone = req.getParameter("up_acc_phone");
+        Account account = new Account(id, name, password, email, phone, 1);
+        return accountRepository.updateAccount(account);
     }
 }
