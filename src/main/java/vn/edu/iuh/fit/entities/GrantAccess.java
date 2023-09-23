@@ -18,14 +18,14 @@ public class GrantAccess {
     private Role role;
 
     @Column(name = "is_grant",columnDefinition = "enum('1','0','-1')")
-    private byte isGrant;
+    private boolean isGrant;
     @Column(columnDefinition = "VARCHAR(50)")
     private String note;
 
     public GrantAccess() {
     }
 
-    public GrantAccess(Account account, Role role, byte isGrant, String note) {
+    public GrantAccess(Account account, Role role, boolean isGrant, String note) {
         this.account = account;
         this.role = role;
         this.isGrant = isGrant;
@@ -48,11 +48,11 @@ public class GrantAccess {
         this.role = role;
     }
 
-    public byte getIsGrant() {
+    public boolean getIsGrant() {
         return isGrant;
     }
 
-    public void setIsGrant(byte isGrant) {
+    public void setIsGrant(boolean isGrant) {
         this.isGrant = isGrant;
     }
 
