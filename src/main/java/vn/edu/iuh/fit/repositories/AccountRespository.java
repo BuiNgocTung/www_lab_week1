@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.repositories;
 
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import vn.edu.iuh.fit.db.Connection;
@@ -12,18 +13,32 @@ import java.util.logging.Logger;
 public class AccountRespository {
     private  final Logger logger = Logger.getLogger(AccountRespository.class.getName());
     private EntityManager em;
+    private EntityTransaction trans;
+
 
     public AccountRespository() {
         em = Connection.getInstance().getEntityManagerFactory().createEntityManager();
-    }
-    public Account getAccountByEmail(EntityManager em, String email) {
-        try {
-            TypedQuery<Account> query = em.createQuery("SELECT a FROM Account a WHERE a.email = :email", Account.class);
-            query.setParameter("email", email);
-            return query.getSingleResult();
-        } catch (NoResultException e) {
+        trans = em.getTransaction();
 
-            return null;
+    }
+    public Account getAccountById(String id){
+
+        return em.find(Account.class, id);
+    }
+
+    public Account getAccountByEmailAndPassword(String email, String password){
+        trans.begin();
+        try{
+            Account account = em.createQuery("SELECT a FROM Account a WHERE a.email = :email" +
+                    " and a.password =: password", Account.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password).getSingleResult();
+            trans.commit();
+            return account;
+        }catch (Exception exception){
+            exception.printStackTrace();
+            trans.rollback();
         }
+        return null;
     }
 }
